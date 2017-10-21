@@ -24,7 +24,7 @@
 	"require-dev": {
 		"jakub-onderka/php-parallel-lint": "0.9.0",
 		"phpunit/phpunit": "4.6.*",
-		"mediawiki/mediawiki-codesniffer": "0.12.0"
+		"mediawiki/mediawiki-codesniffer": "14.1.0"
 	},
 	"scripts": {
 		"test": [
