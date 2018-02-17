@@ -23,7 +23,7 @@ namespace Wikimedia\Test;
 /**
  * @covers Wikimedia\base_convert
  */
-class FunctionsTest extends \PHPUnit_Framework_TestCase {
+class FunctionsTest extends \PHPUnit\Framework\TestCase {
 	public static function provideSingleDigitConversions() {
 		return [
 			// 2    3    5    8   10   16   36
