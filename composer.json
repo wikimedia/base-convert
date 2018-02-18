@@ -1,7 +1,7 @@
 {
 	"name": "wikimedia/base-convert",
 	"description": "Convert an arbitrarily-long string from one numeric base to another, optionally zero-padding to a minimum column width.",
-	"license": "GPL-2.0+",
+	"license": "GPL-2.0-or-later",
 	"homepage": "https://www.mediawiki.org/wiki/base_convert",
 	"authors": [
 		{
