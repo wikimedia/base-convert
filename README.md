@@ -29,6 +29,15 @@ Running tests
     composer test
 
 
+Unknown Problems
+----------------
+
+- In case someone has been puzzled by the PHP notice filling both PHP 7.2 log and HTTP server log with something like
+    
+    `PHP Notice: Undefined index: 15.0000000 in /var/www/wiki.astrololo.fr/vendor/wikimedia/base-convert/src/Functions.php on line 87`
+    
+There was an issue reported at [Phabricator](https://phabricator.wikimedia.org/T194052) which suggested that adding gmp extension of PHP 7.2 would probably solve the problem.
+
 History
 -------
 
