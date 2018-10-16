@@ -215,4 +215,15 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase {
 		$this->assertSame( '37d4', \Wikimedia\base_convert( '0b10', 36, 16 ) );
 		$this->assertSame( 'a734', \Wikimedia\base_convert( '0x10', 36, 16 ) );
 	}
+
+	public function testBcscale() {
+		if ( extension_loaded( 'bcmath' ) ) {
+			bcscale( 5 );
+			$this->assertSame( '10', \Wikimedia\base_convert( '16', 10, 16, 0, true, 'bcmath' ) );
+			bcscale( 0 );
+		} else {
+			// Don't be marked as risky if bcmath is unavailable
+			$this->assertTrue( true );
+		}
+	}
 }

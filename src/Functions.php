@@ -84,7 +84,8 @@ function base_convert( $input, $sourceBase, $destBase, $pad = 1,
 
 		// @codingStandardsIgnoreStart Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed
 		for ( $result = ''; bccomp( $decimal, 0 ); $decimal = bcdiv( $decimal, $destBase, 0 ) ) {
-			$result .= $baseChars[bcmod( $decimal, $destBase )];
+			// As of PHP 7.2, bcmod can return a floating point value if bcscale is nonzero
+			$result .= $baseChars[(int)bcmod( $decimal, $destBase )];
 		}
 		// @codingStandardsIgnoreEnd
 
