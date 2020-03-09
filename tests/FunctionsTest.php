@@ -26,7 +26,7 @@ namespace Wikimedia\Test;
 class FunctionsTest extends \PHPUnit\Framework\TestCase {
 	public static function provideSingleDigitConversions() {
 		return [
-			// 2    3    5    8   10   16   36
+				// 2    3    5    8   10   16   36
 				[ '0', '0', '0', '0', '0', '0', '0' ],
 				[ '1', '1', '1', '1', '1', '1', '1' ],
 				[ '10', '2', '2', '2', '2', '2', '2' ],
