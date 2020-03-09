@@ -71,10 +71,7 @@ function base_convert( $input, $sourceBase, $destBase, $pad = 1,
 	];
 
 	if ( extension_loaded( 'gmp' ) && ( $engine == 'auto' || $engine == 'gmp' ) ) {
-		// Removing leading zeros works around broken base detection code in
-		// some PHP versions (see <https://bugs.php.net/bug.php?id=50175> and
-		// <https://bugs.php.net/bug.php?id=55398>).
-		$result = gmp_strval( gmp_init( ltrim( $input, '0' ) ?: '0', $sourceBase ), $destBase );
+		$result = gmp_strval( gmp_init( $input, $sourceBase ), $destBase );
 	} elseif ( extension_loaded( 'bcmath' ) && ( $engine == 'auto' || $engine == 'bcmath' ) ) {
 		$decimal = '0';
 		foreach ( str_split( strtolower( $input ) ) as $char ) {
