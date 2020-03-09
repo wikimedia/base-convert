@@ -433,4 +433,18 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase {
 			$this->assertTrue( true );
 		}
 	}
+
+	public function testBaseWithLetterOutput() {
+		foreach ( static::$engines as $engine ) {
+			$this->assertSame(
+				'a',
+				\Wikimedia\base_convert( '10', 10, 16, 1, true, $engine )
+			);
+
+			$this->assertSame(
+				'A',
+				\Wikimedia\base_convert( '10', 10, 16, 1, false, $engine )
+			);
+		}
+	}
 }
