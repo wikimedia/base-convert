@@ -24,6 +24,18 @@ namespace Wikimedia\Test;
  * @covers Wikimedia\base_convert
  */
 class FunctionsTest extends \PHPUnit\Framework\TestCase {
+
+	private static $engines = [ 'php' ];
+
+	public static function setUpBeforeClass(): void {
+		if ( extension_loaded( 'bcmath' ) ) {
+			static::$engines[] = 'bcmath';
+		}
+		if ( extension_loaded( 'gmp' ) ) {
+			static::$engines[] = 'gmp';
+		}
+	}
+
 	public static function provideSingleDigitConversions() {
 		return [
 			// 2    3    5    8   10   16   36
@@ -70,96 +82,252 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideSingleDigitConversions
 	 */
 	public function testDigitToBase2( $base2, $base3, $base5, $base8, $base10, $base16, $base36 ) {
-		$this->assertSame( $base2, \Wikimedia\base_convert( $base3, '3', '2' ) );
-		$this->assertSame( $base2, \Wikimedia\base_convert( $base5, '5', '2' ) );
-		$this->assertSame( $base2, \Wikimedia\base_convert( $base8, '8', '2' ) );
-		$this->assertSame( $base2, \Wikimedia\base_convert( $base10, '10', '2' ) );
-		$this->assertSame( $base2, \Wikimedia\base_convert( $base16, '16', '2' ) );
-		$this->assertSame( $base2, \Wikimedia\base_convert( $base36, '36', '2' ) );
+		foreach ( static::$engines as $engine ) {
+			$this->assertSame(
+				$base2,
+				\Wikimedia\base_convert( $base3, 3, 2, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base2,
+				\Wikimedia\base_convert( $base5, 5, 2, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base2,
+				\Wikimedia\base_convert( $base8, 8, 2, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base2,
+				\Wikimedia\base_convert( $base10, 10, 2, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base2,
+				\Wikimedia\base_convert( $base16, 16, 2, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base2,
+				\Wikimedia\base_convert( $base36, 36, 2, 1, true, $engine )
+			);
+		}
 	}
 
 	/**
 	 * @dataProvider provideSingleDigitConversions
 	 */
 	public function testDigitToBase3( $base2, $base3, $base5, $base8, $base10, $base16, $base36 ) {
-		$this->assertSame( $base3, \Wikimedia\base_convert( $base2, '2', '3' ) );
-		$this->assertSame( $base3, \Wikimedia\base_convert( $base5, '5', '3' ) );
-		$this->assertSame( $base3, \Wikimedia\base_convert( $base8, '8', '3' ) );
-		$this->assertSame( $base3, \Wikimedia\base_convert( $base10, '10', '3' ) );
-		$this->assertSame( $base3, \Wikimedia\base_convert( $base16, '16', '3' ) );
-		$this->assertSame( $base3, \Wikimedia\base_convert( $base36, '36', '3' ) );
+		foreach ( static::$engines as $engine ) {
+			$this->assertSame(
+				$base3,
+				\Wikimedia\base_convert( $base2, 2, 3, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base3, \Wikimedia\base_convert( $base5, 5, 3, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base3,
+				\Wikimedia\base_convert( $base8, 8, 3, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base3,
+				\Wikimedia\base_convert( $base10, 10, 3, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base3,
+				\Wikimedia\base_convert( $base16, 16, 3, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base3,
+				\Wikimedia\base_convert( $base36, 36, 3, 1, true, $engine )
+			);
+		}
 	}
 
 	/**
 	 * @dataProvider provideSingleDigitConversions
 	 */
 	public function testDigitToBase5( $base2, $base3, $base5, $base8, $base10, $base16, $base36 ) {
-		$this->assertSame( $base5, \Wikimedia\base_convert( $base2, '2', '5' ) );
-		$this->assertSame( $base5, \Wikimedia\base_convert( $base3, '3', '5' ) );
-		$this->assertSame( $base5, \Wikimedia\base_convert( $base8, '8', '5' ) );
-		$this->assertSame( $base5, \Wikimedia\base_convert( $base10, '10', '5' ) );
-		$this->assertSame( $base5, \Wikimedia\base_convert( $base16, '16', '5' ) );
-		$this->assertSame( $base5, \Wikimedia\base_convert( $base36, '36', '5' ) );
+		foreach ( static::$engines as $engine ) {
+			$this->assertSame(
+				$base5,
+				\Wikimedia\base_convert( $base2, 2, 5, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base5,
+				\Wikimedia\base_convert( $base3, 3, 5, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base5,
+				\Wikimedia\base_convert( $base8, 8, 5, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base5,
+				\Wikimedia\base_convert( $base10, 10, 5, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base5,
+				\Wikimedia\base_convert( $base16, 16, 5, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base5,
+				\Wikimedia\base_convert( $base36, 36, 5, 1, true, $engine )
+			);
+		}
 	}
 
 	/**
 	 * @dataProvider provideSingleDigitConversions
 	 */
 	public function testDigitToBase8( $base2, $base3, $base5, $base8, $base10, $base16, $base36 ) {
-		$this->assertSame( $base8, \Wikimedia\base_convert( $base2, '2', '8' ) );
-		$this->assertSame( $base8, \Wikimedia\base_convert( $base3, '3', '8' ) );
-		$this->assertSame( $base8, \Wikimedia\base_convert( $base5, '5', '8' ) );
-		$this->assertSame( $base8, \Wikimedia\base_convert( $base10, '10', '8' ) );
-		$this->assertSame( $base8, \Wikimedia\base_convert( $base16, '16', '8' ) );
-		$this->assertSame( $base8, \Wikimedia\base_convert( $base36, '36', '8' ) );
+		foreach ( static::$engines as $engine ) {
+			$this->assertSame(
+				$base8,
+				\Wikimedia\base_convert( $base2, 2, 8, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base8,
+				\Wikimedia\base_convert( $base3, 3, 8, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base8,
+				\Wikimedia\base_convert( $base5, 5, 8, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base8,
+				\Wikimedia\base_convert( $base10, 10, 8, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base8,
+				\Wikimedia\base_convert( $base16, 16, 8, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base8,
+				\Wikimedia\base_convert( $base36, 36, 8, 1, true, $engine )
+			);
+		}
 	}
 
 	/**
 	 * @dataProvider provideSingleDigitConversions
 	 */
 	public function testDigitToBase10( $base2, $base3, $base5, $base8, $base10, $base16, $base36 ) {
-		$this->assertSame( $base10, \Wikimedia\base_convert( $base2, '2', '10' ) );
-		$this->assertSame( $base10, \Wikimedia\base_convert( $base3, '3', '10' ) );
-		$this->assertSame( $base10, \Wikimedia\base_convert( $base5, '5', '10' ) );
-		$this->assertSame( $base10, \Wikimedia\base_convert( $base8, '8', '10' ) );
-		$this->assertSame( $base10, \Wikimedia\base_convert( $base16, '16', '10' ) );
-		$this->assertSame( $base10, \Wikimedia\base_convert( $base36, '36', '10' ) );
+		foreach ( static::$engines as $engine ) {
+			$this->assertSame(
+				$base10,
+				\Wikimedia\base_convert( $base2, 2, 10, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base10,
+				\Wikimedia\base_convert( $base3, 3, 10, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base10,
+				\Wikimedia\base_convert( $base5, 5, 10, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base10,
+				\Wikimedia\base_convert( $base8, 8, 10, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base10,
+				\Wikimedia\base_convert( $base16, 16, 10, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base10,
+				\Wikimedia\base_convert( $base36, 36, 10, 1, true, $engine )
+			);
+		}
 	}
 
 	/**
 	 * @dataProvider provideSingleDigitConversions
 	 */
 	public function testDigitToBase16( $base2, $base3, $base5, $base8, $base10, $base16, $base36 ) {
-		$this->assertSame( $base16, \Wikimedia\base_convert( $base2, '2', '16' ) );
-		$this->assertSame( $base16, \Wikimedia\base_convert( $base3, '3', '16' ) );
-		$this->assertSame( $base16, \Wikimedia\base_convert( $base5, '5', '16' ) );
-		$this->assertSame( $base16, \Wikimedia\base_convert( $base8, '8', '16' ) );
-		$this->assertSame( $base16, \Wikimedia\base_convert( $base10, '10', '16' ) );
-		$this->assertSame( $base16, \Wikimedia\base_convert( $base36, '36', '16' ) );
+		foreach ( static::$engines as $engine ) {
+			$this->assertSame(
+				$base16,
+				\Wikimedia\base_convert( $base2, 2, 16, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base16,
+				\Wikimedia\base_convert( $base3, 3, 16, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base16,
+				\Wikimedia\base_convert( $base5, 5, 16, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base16,
+				\Wikimedia\base_convert( $base8, 8, 16, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base16,
+				\Wikimedia\base_convert( $base10, 10, 16, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base16,
+				\Wikimedia\base_convert( $base36, 36, 16, 1, true, $engine )
+			);
+		}
 	}
 
 	/**
 	 * @dataProvider provideSingleDigitConversions
 	 */
 	public function testDigitToBase36( $base2, $base3, $base5, $base8, $base10, $base16, $base36 ) {
-		$this->assertSame( $base36, \Wikimedia\base_convert( $base2, '2', '36' ) );
-		$this->assertSame( $base36, \Wikimedia\base_convert( $base3, '3', '36' ) );
-		$this->assertSame( $base36, \Wikimedia\base_convert( $base5, '5', '36' ) );
-		$this->assertSame( $base36, \Wikimedia\base_convert( $base8, '8', '36' ) );
-		$this->assertSame( $base36, \Wikimedia\base_convert( $base10, '10', '36' ) );
-		$this->assertSame( $base36, \Wikimedia\base_convert( $base16, '16', '36' ) );
+		foreach ( static::$engines as $engine ) {
+			$this->assertSame(
+				$base36,
+				\Wikimedia\base_convert( $base2, 2, 36, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base36,
+				\Wikimedia\base_convert( $base3, 3, 36, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base36,
+				\Wikimedia\base_convert( $base5, 5, 36, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base36,
+				\Wikimedia\base_convert( $base8, 8, 36, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base36,
+				\Wikimedia\base_convert( $base10, 10, 36, 1, true, $engine )
+			);
+			$this->assertSame(
+				$base36,
+				\Wikimedia\base_convert( $base16, 16, 36, 1, true, $engine )
+			);
+		}
 	}
 
 	public function testLargeNumber() {
-		$this->assertSame(
-			'1100110001111010000000101110100',
-			\Wikimedia\base_convert( 'sd89ys', 36, 2 )
-		);
-		$this->assertSame( '11102112120221201101', \Wikimedia\base_convert( 'sd89ys', 36, 3 ) );
-		$this->assertSame( '12003102232400', \Wikimedia\base_convert( 'sd89ys', 36, 5 ) );
-		$this->assertSame( '14617200564', \Wikimedia\base_convert( 'sd89ys', 36, 8 ) );
-		$this->assertSame( '1715274100', \Wikimedia\base_convert( 'sd89ys', 36, 10 ) );
-		$this->assertSame( '663d0174', \Wikimedia\base_convert( 'sd89ys', 36, 16 ) );
+		foreach ( static::$engines as $engine ) {
+			$this->assertSame(
+				'1100110001111010000000101110100',
+				\Wikimedia\base_convert( 'sd89ys', 36, 2, 1, true, $engine )
+			);
+			$this->assertSame(
+				'11102112120221201101',
+				\Wikimedia\base_convert( 'sd89ys', 36, 3, 1, true, $engine )
+			);
+			$this->assertSame(
+				'12003102232400',
+				\Wikimedia\base_convert( 'sd89ys', 36, 5, 1, true, $engine )
+			);
+			$this->assertSame(
+				'14617200564',
+				\Wikimedia\base_convert( 'sd89ys', 36, 8, 1, true, $engine )
+			);
+			$this->assertSame(
+				'1715274100',
+				\Wikimedia\base_convert( 'sd89ys', 36, 10, 1, true, $engine )
+			);
+			$this->assertSame(
+				'663d0174',
+				\Wikimedia\base_convert( 'sd89ys', 36, 16, 1, true, $engine )
+			);
+		}
 	}
 
 	public static function provideNumbers() {
@@ -184,42 +352,81 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider provideNumbers
 	 */
 	public function testIdentity( $base, $number ) {
-		$this->assertSame( $number, \Wikimedia\base_convert( $number, $base, $base, strlen( $number ) ) );
+		foreach ( static::$engines as $engine ) {
+			$this->assertSame(
+				$number,
+				\Wikimedia\base_convert( $number, $base, $base, strlen( $number ), true, $engine )
+			);
+		}
 	}
 
 	public function testInvalid() {
-		$this->assertFalse( \Wikimedia\base_convert( '101', 1, 15 ) );
-		$this->assertFalse( \Wikimedia\base_convert( '101', 15, 1 ) );
-		$this->assertFalse( \Wikimedia\base_convert( '101', 37, 15 ) );
-		$this->assertFalse( \Wikimedia\base_convert( '101', 15, 37 ) );
-		$this->assertFalse( \Wikimedia\base_convert( 'abcde', 10, 11 ) );
-		$this->assertFalse( \Wikimedia\base_convert( '12930', 2, 10 ) );
-		$this->assertFalse( \Wikimedia\base_convert( '101', 'abc', 15 ) );
-		$this->assertFalse( \Wikimedia\base_convert( '101', 15, 'abc' ) );
+		foreach ( static::$engines as $engine ) {
+			$this->assertFalse(
+				\Wikimedia\base_convert( '101', 1, 15, 1, true, $engine )
+			);
+			$this->assertFalse(
+				\Wikimedia\base_convert( '101', 15, 1, 1, true, $engine )
+			);
+			$this->assertFalse(
+				\Wikimedia\base_convert( '101', 37, 15, 1, true, $engine )
+			);
+			$this->assertFalse(
+				\Wikimedia\base_convert( '101', 15, 37, 1, true, $engine )
+			);
+			$this->assertFalse(
+				\Wikimedia\base_convert( 'abcde', 10, 11, 1, true, $engine )
+			);
+			$this->assertFalse(
+				\Wikimedia\base_convert( '12930', 2, 10, 1, true, $engine )
+			);
+			$this->assertFalse(
+				\Wikimedia\base_convert( '101', 'abc', 15, 1, true, $engine )
+			);
+			$this->assertFalse(
+				\Wikimedia\base_convert( '101', 15, 'abc', 1, true, $engine )
+			);
+		}
 	}
 
 	public function testPadding() {
 		$number = "10101010101";
-		$this->assertSame(
-			strlen( $number ) + 5,
-			strlen( \Wikimedia\base_convert( $number, 2, 2, strlen( $number ) + 5 ) )
-		);
-		$this->assertSame(
-			strlen( $number ),
-			strlen( \Wikimedia\base_convert( $number, 2, 2, strlen( $number ) - 5 ) )
-		);
+		foreach ( static::$engines as $engine ) {
+			$this->assertSame(
+				strlen( $number ) + 5,
+				strlen( \Wikimedia\base_convert( $number, 2, 2, strlen( $number ) + 5, true, $engine ) )
+			);
+			$this->assertSame(
+				strlen( $number ),
+				strlen( \Wikimedia\base_convert( $number, 2, 2, strlen( $number ) - 5, true, $engine ) )
+			);
+		}
 	}
 
 	public function testLeadingZero() {
-		$this->assertSame( '24', \Wikimedia\base_convert( '010', 36, 16 ) );
-		$this->assertSame( '37d4', \Wikimedia\base_convert( '0b10', 36, 16 ) );
-		$this->assertSame( 'a734', \Wikimedia\base_convert( '0x10', 36, 16 ) );
+		foreach ( static::$engines as $engine ) {
+			$this->assertSame(
+				'24',
+				\Wikimedia\base_convert( '010', 36, 16, 1, true, $engine )
+			);
+			$this->assertSame(
+				'37d4',
+				\Wikimedia\base_convert( '0b10', 36, 16, 1, true, $engine )
+			);
+			$this->assertSame(
+				'a734',
+				\Wikimedia\base_convert( '0x10', 36, 16, 1, true, $engine )
+			);
+		}
 	}
 
 	public function testBcscale() {
 		if ( extension_loaded( 'bcmath' ) ) {
 			bcscale( 5 );
-			$this->assertSame( '10', \Wikimedia\base_convert( '16', 10, 16, 0, true, 'bcmath' ) );
+			$this->assertSame(
+				'10',
+				\Wikimedia\base_convert( '16', 10, 16, 0, true, 'bcmath' )
+			);
 			bcscale( 0 );
 		} else {
 			// Don't be marked as risky if bcmath is unavailable
