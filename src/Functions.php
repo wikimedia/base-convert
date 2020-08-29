@@ -81,12 +81,10 @@ function base_convert( $input, $sourceBase, $destBase, $pad = 1,
 			$decimal = bcadd( $decimal, $baseChars[$char] );
 		}
 
-		// @codingStandardsIgnoreStart Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed
 		for ( $result = ''; bccomp( $decimal, 0 ); $decimal = bcdiv( $decimal, $destBase, 0 ) ) {
 			// As of PHP 7.2, bcmod can return a floating point value if bcscale is nonzero
 			$result .= $baseChars[(int)bcmod( $decimal, $destBase )];
 		}
-		// @codingStandardsIgnoreEnd
 
 		$result = strrev( $result );
 	} else {
