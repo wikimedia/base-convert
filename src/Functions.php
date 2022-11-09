@@ -35,7 +35,7 @@ namespace Wikimedia;
  * @param string $engine Either "gmp", "bcmath", "php" or "auto" (default).
  *  In the case of "auto", the other engines ("gmp" and "bcmath") are used in
  *  the listed order in terms of preference if that PHP extension is actually loaded.
- * @return string|bool The output number as a string, or false on error
+ * @return string|false The output number as a string, or false on error
  */
 function base_convert( $input, $sourceBase, $destBase, $pad = 1,
 	$lowercase = true, $engine = 'auto'
