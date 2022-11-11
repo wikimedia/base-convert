@@ -72,9 +72,9 @@ function base_convert( $input, $sourceBase, $destBase, $pad = 1,
 		'u' => 30, 'v' => 31, 'w' => 32, 'x' => 33, 'y' => 34, 'z' => 35
 	];
 
-	if ( extension_loaded( 'gmp' ) && ( $engine == 'auto' || $engine == 'gmp' ) ) {
+	if ( extension_loaded( 'gmp' ) && ( $engine === 'auto' || $engine === 'gmp' ) ) {
 		$result = gmp_strval( gmp_init( $input, $sourceBase ), $destBase );
-	} elseif ( extension_loaded( 'bcmath' ) && ( $engine == 'auto' || $engine == 'bcmath' ) ) {
+	} elseif ( extension_loaded( 'bcmath' ) && ( $engine === 'auto' || $engine === 'bcmath' ) ) {
 		$decimal = '0';
 		foreach ( str_split( strtolower( $input ) ) as $char ) {
 			$decimal = bcmul( $decimal, (string)$sourceBase );
