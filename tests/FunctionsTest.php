@@ -20,11 +20,14 @@
 
 namespace Wikimedia\Test;
 
-/**
- * @covers Wikimedia\base_convert
- */
-class FunctionsTest extends \PHPUnit\Framework\TestCase {
+use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Wikimedia\base_convert
+ */
+class FunctionsTest extends TestCase {
+
+	/** @var string[] */
 	private static $engines = [ 'php' ];
 
 	public static function setUpBeforeClass(): void {

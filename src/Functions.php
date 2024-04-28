@@ -46,9 +46,9 @@ function base_convert( $input, $sourceBase, $destBase, $pad = 1,
 		$sourceBase > 36 ||
 		$destBase < 2 ||
 		$destBase > 36 ||
-		$sourceBase != (int)$sourceBase ||
-		$destBase != (int)$destBase ||
-		$pad != (int)$pad ||
+		$sourceBase !== (int)$sourceBase ||
+		$destBase !== (int)$destBase ||
+		$pad !== (int)$pad ||
 		!preg_match(
 			"/^[" . substr( '0123456789abcdefghijklmnopqrstuvwxyz', 0, $sourceBase ) . "]+$/i",
 			$input
