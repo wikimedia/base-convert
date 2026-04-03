@@ -64,7 +64,7 @@ function base_convert( $input, $sourceBase, $destBase, $pad = 1,
 		$decimal = '0';
 		foreach ( str_split( strtolower( $input ) ) as $char ) {
 			$decimal = bcmul( $decimal, (string)$sourceBase );
-			$decimal = bcadd( $decimal, $baseChars[$char] );
+			$decimal = bcadd( $decimal, (string)$baseChars[$char] );
 		}
 
 		for ( $result = ''; bccomp( $decimal, '0' ); $decimal = bcdiv( $decimal, (string)$destBase, 0 ) ) {
